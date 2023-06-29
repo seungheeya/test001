@@ -9,15 +9,28 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary" style="float: left; padding-top: 7px;">Board List</h2>
-                            <form id="loginForm" action="/user/login" method="post" style="float: left; width: 550px; margin-left: 1000px; padding-top: 5px;">
+                            
+                            <c:if test="${user == null }">
+                            <form id="loginForm" action="/user/login" method="post" style="float: left; width: 750px; margin-left: 1900px; padding-top: 5px;">
                             	<label>아이디</label>
                             	<input type="text" id="id" name="id" style="width: 200px;">
                             	<label>비밀번호</label>
                             	<input type="password" id="password" name="password" style="width: 200px;">
+                            	<button id="btnUserLogin" class="btn btn-primary" type="submit" style="font-size: 16pt; margin-left:10px;">로그인</button>
+                            	<button id="btnUserReg" class="btn btn-primary" type="button" style="font-size: 16pt;">회원가입</button>
                             </form>
-                            <button id="btnUserLogin" class="btn btn-primary" type="button" style="font-size: 16pt;">로그인</button>
-                            <button id="btnUserReg" class="btn btn-primary" type="button" style="font-size: 16pt;">회원가입</button>
-                            <button id="regBtn" class="btn btn-primary" type="button" style=" font-size: 16pt; margin-left: 70px;">Register New Board</button>
+                            </c:if>
+                            
+                            <c:if test="${msg == false }">
+                            	<p style="color: #f00;">로그인에 실패했습니다. 아이디 또는 패스워드를 확인해주십시오.</p>
+                            </c:if>
+                            
+                            <c:if test="${user != null}">
+                            	<p style="width: 250px; margin-left: 2330px; font-size: 16pt; float: left; padding-top: 10px;"><c:out value="${user.name }"/>님 환영합니다.</p>
+                            	<a href="/user/logout">로그아웃</a>
+                            </c:if>
+                            
+                            <button id="regBtn" class="btn btn-primary" type="button" style=" font-size: 16pt; margin-left: 80px; margin-top: 5px;">Register New Board</button>
                         </div>
                   
                         <div class="card-body">
@@ -140,13 +153,6 @@
                     		
                     		$('#btnUserReg').on("click", function(e){
                     			window.location.href = "/user/register";
-                    		});
-                    		
-                    		var loginForm = $("loginForm")
-                    		$("#btnUserLogin").on("click", function(e){
-                    			e.preventDefault();
-                    			
-                    			loginForm.attr("action", "/user/login");
                     		});
                     		
                     		

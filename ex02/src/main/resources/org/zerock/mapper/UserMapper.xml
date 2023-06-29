@@ -9,7 +9,7 @@
 	</insert>
 	
 	<!-- 로그인 -->
-	<select id="login">
+	<select id="login" resultType="org.zerock.domain.UserVO">
 		select name
 		from tbl_user
 		where id = #{id} and password = #{password}

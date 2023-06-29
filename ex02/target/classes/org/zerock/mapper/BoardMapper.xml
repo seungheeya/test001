@@ -45,11 +45,11 @@
 				bno, title, content, writer, cdate, udate
 			from
 				(
-				select 
+				select /*+index_desc(tbl_board tbl_board_pk) */
 					rownum rn, bno, title, content, writer, cdate, udate
 				from
 					tbl_board
-				where rownum <= #{pageNum} * #{amount} order by tbl_board.bno desc
+				where rownum <= #{pageNum} * #{amount}
 				)
 			where rn > (#{pageNum} - 1) * #{amount}
 		]]>
